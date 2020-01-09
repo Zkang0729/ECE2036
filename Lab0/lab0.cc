@@ -15,5 +15,6 @@ int main()
             << "This (\\) is a backslash. "
             << '\n'
             << "This (/) is a forward slash. "
-            << '\n';
+            << '\n'
+            << std::endl;
 }
