@@ -10,12 +10,14 @@ Description: Implment the RobotSwarm class, defineing how each function works.
 #include <iostream>
 #include <time.h>
 #include <vector>
+#include <stdlib.h>
+#include <stdio.h>
 
 using namespace std;
 
 RobotSwarm::RobotSwarm(int number)
 {
-  RobotSwarm::robotMap = vector<vector<int>>(32, vector<int>(32, 0));
+  RobotSwarm::robotMap = vector< vector<int> >(32, vector<int>(32, 0));
   RobotSwarm::robots = vector<Robot>(number);
   for (int i = 0; i < number; i++)
   {
