@@ -12,15 +12,19 @@ Description: Implment the Robot class, defineing how each function works.
 
 using namespace std;
 
-Robot::Robot() : xPosition{0}, yPosition{0}
+Robot::Robot()
 {
+  xPosition = 0;
+  yPosition = 0;
   Robot::map = vector< vector<int> >(32, vector<int>(32, 0));
   Robot::map[xPosition][yPosition]++;
 }
 
-Robot::Robot(int xPosition = 0, int yPosition = 0) : xPosition{xPosition}, yPosition{yPosition}
+Robot::Robot(int xPosition = 0, int yPosition = 0)
 {
-  Robot::map = vector<vector<int>>(32, vector<int>(32, 0));
+  xPosition = xPosition;
+  yPosition = yPosition;
+  Robot::map = vector< vector<int> >(32, vector<int>(32, 0));
   Robot::map[xPosition][yPosition]++;
 }
 
