@@ -11,7 +11,6 @@ Description: Implment the RobotSwarm class, defineing how each function works.
 #include <time.h>
 #include <vector>
 #include <stdlib.h>
-#include <stdio.h>
 
 using namespace std;
 

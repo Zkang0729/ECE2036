@@ -12,18 +12,14 @@ Description: Implment the Robot class, defineing how each function works.
 
 using namespace std;
 
-Robot::Robot()
+Robot::Robot() : xPosition{0}, yPosition{0}
 {
-  xPosition = 0;
-  yPosition = 0;
   Robot::map = vector< vector<int> >(32, vector<int>(32, 0));
   Robot::map[xPosition][yPosition]++;
 }
 
-Robot::Robot(int xPosition, int yPosition)
+Robot::Robot(int xPosition = 0, int yPosition = 0) : xPosition{xPosition}, yPosition{yPosition}
 {
-  xPosition = xPosition;
-  yPosition = yPosition;
   Robot::map = vector< vector<int> >(32, vector<int>(32, 0));
   Robot::map[xPosition][yPosition]++;
 }
@@ -91,8 +87,7 @@ void Robot::displayPosition() const
 
 void Robot::printHistory() const
 {
-  fstream history;
-  history.open("history.txt", fstream::app);
+  ofstream history("history.txt", fstream::app);
   for (int i = 0; i < 32; i++)
   {
     for (int j = 0; j < 32; j++)
