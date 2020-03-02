@@ -19,12 +19,12 @@ RobotSwarm::RobotSwarm(int number)
 {
   RobotSwarm::robotMap = vector< vector<int> >(32, vector<int>(32, 0));
   RobotSwarm::robots = vector<Robot>(number);
+  srand(time(NULL));
   for (int i = 0; i < number; i++)
   {
     int xPosition, yPosition;
     do
     {
-      srand(time(NULL));
       xPosition = rand() % 32;
       yPosition = rand() % 32;
     } while (RobotSwarm::robotMap[xPosition][yPosition]);
@@ -36,11 +36,11 @@ RobotSwarm::RobotSwarm(int number)
 void RobotSwarm::moveSwarm()
 {
   int times, direction;
+  srand(time(NULL));
   for (int i = 0; i < RobotSwarm::robots.size(); i++)
   {
     for (times = 5; times > 0; times--)
     {
-      srand(time(NULL));
       direction = rand() % 4 + 1;
       switch (direction)
       {

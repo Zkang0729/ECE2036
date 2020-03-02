@@ -20,7 +20,7 @@ Robot::Robot()
   Robot::map[xPosition][yPosition]++;
 }
 
-Robot::Robot(int xPosition = 0, int yPosition = 0)
+Robot::Robot(int xPosition, int yPosition)
 {
   xPosition = xPosition;
   yPosition = yPosition;
