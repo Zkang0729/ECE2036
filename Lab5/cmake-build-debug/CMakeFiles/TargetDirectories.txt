@@ -1,0 +1,3 @@
+/mnt/c/Users/jivey9/CLionProjects/zStudents/Lab5/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/mnt/c/Users/jivey9/CLionProjects/zStudents/Lab5/cmake-build-debug/CMakeFiles/matrix.dir
+/mnt/c/Users/jivey9/CLionProjects/zStudents/Lab5/cmake-build-debug/CMakeFiles/edit_cache.dir

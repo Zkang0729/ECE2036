@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/c/Users/jivey9/CLionProjects/zStudents/Lab5/complex.cc
+complex.h
+/mnt/c/Users/jivey9/CLionProjects/zStudents/Lab5/complex.h
+iomanip
+-
+cmath
+-
+limits
+-
+
+/mnt/c/Users/jivey9/CLionProjects/zStudents/Lab5/complex.h
+iostream
+-
+string
+-
+sstream
+-
+
+/mnt/c/Users/jivey9/CLionProjects/zStudents/Lab5/main.cc
+iostream
+-
+limits
+-
+complex.h
+/mnt/c/Users/jivey9/CLionProjects/zStudents/Lab5/complex.h
+matrix.h
+/mnt/c/Users/jivey9/CLionProjects/zStudents/Lab5/matrix.h
+
+/mnt/c/Users/jivey9/CLionProjects/zStudents/Lab5/matrix.cc
+matrix.h
+/mnt/c/Users/jivey9/CLionProjects/zStudents/Lab5/matrix.h
+limits
+-
+
+/mnt/c/Users/jivey9/CLionProjects/zStudents/Lab5/matrix.h
+complex.h
+/mnt/c/Users/jivey9/CLionProjects/zStudents/Lab5/complex.h
+
