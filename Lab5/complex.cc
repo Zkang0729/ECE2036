@@ -65,6 +65,6 @@ complex &complex::operator/(complex &rhs)
 
 std::ostream &operator<<(std::ostream &os, gtmath::complex &c)
 {
-  os << c.getReal << " + " << c.getImag << "j";
+  os << c.getReal() << " + " << c.getImag() << "j";
   return os;
 }

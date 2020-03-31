@@ -110,6 +110,7 @@ matrix &matrix::operator=(matrix &rhs)
       this->m_vals[i][j] = complex(rhs(i, j).getReal(), rhs(i, j).getImag());
     }
   }
+  return *this;
 };
 
 } // namespace gtmath
@@ -127,4 +128,5 @@ std::ostream &operator<<(std::ostream &os, gtmath::matrix &m)
       }
     }
   }
+  return os;
 }
