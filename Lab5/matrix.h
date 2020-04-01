@@ -16,12 +16,12 @@ class matrix
 {
 public:
     matrix(int rows, int cols);
-    matrix(matrix &copy);
+    matrix(const matrix &copy);
     ~matrix();
     int get_num_cols();
     int get_num_rows();
-    matrix &operator+(matrix &rhs);
-    matrix &operator-(matrix &rhs);
+    matrix operator+(matrix &rhs);
+    matrix operator-(matrix &rhs);
     complex &operator()(int row, int col);
     matrix &operator=(matrix &rhs);
 

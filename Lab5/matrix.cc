@@ -26,17 +26,17 @@ matrix::matrix(int rows, int cols)
   }
 }
 
-matrix::matrix(matrix &copy)
+matrix::matrix(const matrix &copy)
 {
-  this->rows = copy.get_num_rows();
-  this->cols = copy.get_num_cols();
+  this->rows = copy.rows;
+  this->cols = copy.cols;
   this->m_vals = new complex *[this->rows];
   for (int i = 0; i < copy.rows; i++)
   {
     this->m_vals[i] = new complex[this->cols];
     for (int j = 0; j < copy.cols; j++)
     {
-      this->m_vals[i][j] = complex(copy(i, j).getReal(), copy(i, j).getImag());
+      this->m_vals[i][j] = complex(copy.m_vals[i][j].getReal(), copy.m_vals[i][j].getImag());
     }
   }
 }
@@ -54,19 +54,19 @@ int matrix::get_num_rows() { return this->rows; }
 
 int matrix::get_num_cols() { return this->cols; }
 
-matrix &matrix::operator+(matrix &rhs)
+matrix matrix::operator+(matrix &rhs)
 {
   if (this->rows == rhs.get_num_rows() && this->cols == rhs.get_num_cols())
   {
-    matrix *newMatrix = new matrix(rhs.get_num_rows(), rhs.get_num_cols());
+    matrix newMatrix(rhs.get_num_rows(), rhs.get_num_cols());
     for (int i = 0; i < this->get_num_rows(); i++)
     {
       for (int j = 0; j < this->get_num_cols(); j++)
       {
-        (*newMatrix)(i, j) = (*this)(i, j) + rhs(i, j);
+        newMatrix(i, j) = (*this)(i, j) + rhs(i, j);
       }
     }
-    return *newMatrix;
+    return newMatrix;
   }
   else
   {
@@ -74,19 +74,19 @@ matrix &matrix::operator+(matrix &rhs)
   }
 };
 
-matrix &matrix::operator-(matrix &rhs)
+matrix matrix::operator-(matrix &rhs)
 {
   if (this->rows == rhs.get_num_rows() && this->cols == rhs.get_num_cols())
   {
-    matrix *newMatrix = new matrix(rhs.get_num_rows(), rhs.get_num_cols());
+    matrix newMatrix(rhs.get_num_rows(), rhs.get_num_cols());
     for (int i = 0; i < this->get_num_rows(); i++)
     {
       for (int j = 0; j < this->get_num_cols(); j++)
       {
-        (*newMatrix)(i, j) = (*this)(i, j) - rhs(i, j);
+        newMatrix(i, j) = (*this)(i, j) - rhs(i, j);
       }
     }
-    return *newMatrix;
+    return newMatrix;
   }
   else
   {
