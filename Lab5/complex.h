@@ -23,10 +23,10 @@ namespace gtmath {
         void setImag(double imag);
         double getReal() const;
         double getImag() const;
-        complex& operator+(complex& rhs);
-        complex& operator-(complex& rhs);
-        complex& operator*(complex& rhs);
-        complex& operator/(complex& rhs);
+        complex operator+(complex& rhs);
+        complex operator-(complex& rhs);
+        complex operator*(complex& rhs);
+        complex operator/(complex& rhs);
 
     private:
         double m_real;

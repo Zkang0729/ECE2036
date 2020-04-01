@@ -13,6 +13,8 @@ namespace gtmath
 {
 matrix::matrix(int rows, int cols)
 {
+  this->rows = rows;
+  this->cols = cols;
   this->m_vals = new complex *[rows];
   for (int i = 0; i < rows; i++)
   {
@@ -26,10 +28,12 @@ matrix::matrix(int rows, int cols)
 
 matrix::matrix(matrix &copy)
 {
-  this->m_vals = new complex *[rows];
+  this->rows = copy.get_num_rows();
+  this->cols = copy.get_num_cols();
+  this->m_vals = new complex *[this->rows];
   for (int i = 0; i < copy.rows; i++)
   {
-    this->m_vals[i] = new complex[cols];
+    this->m_vals[i] = new complex[this->cols];
     for (int j = 0; j < copy.cols; j++)
     {
       this->m_vals[i][j] = complex(copy(i, j).getReal(), copy(i, j).getImag());
@@ -54,14 +58,15 @@ matrix &matrix::operator+(matrix &rhs)
 {
   if (this->rows == rhs.get_num_rows() && this->cols == rhs.get_num_cols())
   {
+    matrix *newMatrix = new matrix(rhs.get_num_rows(), rhs.get_num_cols());
     for (int i = 0; i < this->get_num_rows(); i++)
     {
       for (int j = 0; j < this->get_num_cols(); j++)
       {
-        (*this)(i, j) = (*this)(i, j) + rhs(i, j);
+        (*newMatrix)(i, j) = (*this)(i, j) + rhs(i, j);
       }
     }
-    return *this;
+    return *newMatrix;
   }
   else
   {
@@ -73,14 +78,15 @@ matrix &matrix::operator-(matrix &rhs)
 {
   if (this->rows == rhs.get_num_rows() && this->cols == rhs.get_num_cols())
   {
+    matrix *newMatrix = new matrix(rhs.get_num_rows(), rhs.get_num_cols());
     for (int i = 0; i < this->get_num_rows(); i++)
     {
       for (int j = 0; j < this->get_num_cols(); j++)
       {
-        (*this)(i, j) = (*this)(i, j) - rhs(i, j);
+        (*newMatrix)(i, j) = (*this)(i, j) - rhs(i, j);
       }
     }
-    return *this;
+    return *newMatrix;
   }
   else
   {
@@ -95,19 +101,26 @@ complex &matrix::operator()(int row, int col)
 
 matrix &matrix::operator=(matrix &rhs)
 {
-  if (this->m_vals)
+  if (this != &rhs)
   {
-    for (int i = 0; i < this->get_num_rows(); i++)
+    if (this->m_vals)
     {
-      delete[] this->m_vals[i];
+      for (int i = 0; i < this->get_num_rows(); i++)
+      {
+        delete[](this->m_vals[i]);
+      }
+      delete[](this->m_vals);
     }
-    delete[] this->m_vals;
-  }
-  for (int i = 0; i < rhs.rows; i++)
-  {
-    for (int j = 0; j < rhs.cols; j++)
+    this->rows = rhs.get_num_rows();
+    this->cols = rhs.get_num_cols();
+    this->m_vals = new complex *[this->rows];
+    for (int i = 0; i < rhs.rows; i++)
     {
-      this->m_vals[i][j] = complex(rhs(i, j).getReal(), rhs(i, j).getImag());
+      this->m_vals[i] = new complex[this->cols];
+      for (int j = 0; j < rhs.cols; j++)
+      {
+        this->m_vals[i][j] = complex(rhs(i, j).getReal(), rhs(i, j).getImag());
+      }
     }
   }
   return *this;
@@ -121,10 +134,13 @@ std::ostream &operator<<(std::ostream &os, gtmath::matrix &m)
   {
     for (int j = 0; j < m.get_num_cols(); j++)
     {
-      os << m(i, j) << " ";
       if (j == m.get_num_cols() - 1)
       {
-        os << std::endl;
+        os << m(i, j) << std::endl;
+      }
+      else
+      {
+        os << m(i, j) << ", ";
       }
     }
   }

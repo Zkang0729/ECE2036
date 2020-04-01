@@ -14,8 +14,8 @@ namespace gtmath
 {
 complex::complex(double real, double imag)
 {
-  setReal(real);
-  setImag(imag);
+  this->m_real = real;
+  this->m_imag = imag;
 }
 
 void complex::setReal(double real)
@@ -32,33 +32,33 @@ double complex::getReal() const { return this->m_real; }
 
 double complex::getImag() const { return this->m_imag; }
 
-complex &complex::operator+(complex &rhs)
+complex complex::operator+(complex &rhs)
 {
-  this->m_real = this->m_real + rhs.m_real;
-  this->m_imag = this->m_imag + rhs.m_imag;
-  return *this;
+  double newReal = this->m_real + rhs.m_real;
+  double newImag = this->m_imag + rhs.m_imag;
+  return complex(newReal, newImag);
 }
 
-complex &complex::operator-(complex &rhs)
+complex complex::operator-(complex &rhs)
 {
-  this->m_real = this->m_real - rhs.m_real;
-  this->m_imag = this->m_imag - rhs.m_imag;
-  return *this;
+  double newReal = this->m_real - rhs.m_real;
+  double newImag = this->m_imag - rhs.m_imag;
+  return complex(newReal, newImag);
 }
 
-complex &complex::operator*(complex &rhs)
+complex complex::operator*(complex &rhs)
 {
-  this->m_real = this->m_real * rhs.m_real - this->m_imag * rhs.m_imag;
-  this->m_imag = this->m_real * rhs.m_imag + this->m_imag * rhs.m_real;
-  return *this;
+  double newReal = this->m_real * rhs.m_real - this->m_imag * rhs.m_imag;
+  double newImag = this->m_real * rhs.m_imag + this->m_imag * rhs.m_real;
+  return complex(newReal, newImag);
 }
 
-complex &complex::operator/(complex &rhs)
+complex complex::operator/(complex &rhs)
 {
   double denominator = this->m_real * this->m_real + this->m_imag * this->m_imag;
-  this->m_real = (this->m_real * rhs.m_real + this->m_imag * rhs.m_imag) / denominator;
-  this->m_imag = (this->m_imag * rhs.m_real - this->m_real * rhs.m_imag) / denominator;
-  return *this;
+  double newReal = (this->m_real * rhs.m_real + this->m_imag * rhs.m_imag) / denominator;
+  double newImag = (this->m_imag * rhs.m_real - this->m_real * rhs.m_imag) / denominator;
+  return complex(newReal, newImag);
 }
 
 } // namespace gtmath
