@@ -46,16 +46,16 @@ complex complex::operator-(complex &rhs)
   return complex(newReal, newImag);
 }
 
-complex complex::operator*(complex &rhs)
+complex complex::operator*(complex &rhs) // (a + bi) * (c + di) = (ac - bd) + (ad + bc)i
 {
   double newReal = this->m_real * rhs.m_real - this->m_imag * rhs.m_imag;
   double newImag = this->m_real * rhs.m_imag + this->m_imag * rhs.m_real;
   return complex(newReal, newImag);
 }
 
-complex complex::operator/(complex &rhs)
+complex complex::operator/(complex &rhs) // (a + bi) / (c + di) = (ac + bd)/(c^2 + d^2) + (bc - ad)i/(c^2 + d^2)
 {
-  double denominator = this->m_real * this->m_real + this->m_imag * this->m_imag;
+  double denominator = rhs.m_real * rhs.m_real + rhs.m_imag * rhs.m_imag;
   double newReal = (this->m_real * rhs.m_real + this->m_imag * rhs.m_imag) / denominator;
   double newImag = (this->m_imag * rhs.m_real - this->m_real * rhs.m_imag) / denominator;
   return complex(newReal, newImag);
@@ -65,6 +65,7 @@ complex complex::operator/(complex &rhs)
 
 std::ostream &operator<<(std::ostream &os, gtmath::complex &c)
 {
+  // set the precision to be 4 and change the signs according to the sign of the imag part of the complex number
   os << std::fixed << std::setprecision(4) << c.getReal() << (c.getImag() >= 0 ? " + " : " - ") << std::setprecision(4) << (c.getImag() < 0 ? -1 * c.getImag() : c.getImag()) << "j";
   return os;
 }

@@ -18,15 +18,15 @@ using std::stringstream;
 namespace gtmath {
     class complex {
     public:
-        complex(double real = 0, double imag = 0);
-        void setReal(double real);
-        void setImag(double imag);
-        double getReal() const;
-        double getImag() const;
-        complex operator+(complex& rhs);
-        complex operator-(complex& rhs);
-        complex operator*(complex& rhs);
-        complex operator/(complex& rhs);
+        complex(double real = 0, double imag = 0); // constructor with default values to 0
+        void setReal(double real); // set the real part of the complex number
+        void setImag(double imag); // set the imag part of the complex number
+        double getReal() const; // get the real part of the complex number
+        double getImag() const; // get the imag part of the complex number
+        complex operator+(complex& rhs); // + operator overloading
+        complex operator-(complex& rhs); // - operator overloading
+        complex operator*(complex& rhs); // * operator overloading
+        complex operator/(complex& rhs); // / operator overloading
 
     private:
         double m_real;
@@ -34,6 +34,6 @@ namespace gtmath {
     };
 }
 
-std::ostream& operator<<(std::ostream& os, gtmath::complex& c);
+std::ostream& operator<<(std::ostream& os, gtmath::complex& c); // ostream operator overloading
 
 #endif

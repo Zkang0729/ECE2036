@@ -15,23 +15,23 @@ namespace gtmath
 class matrix
 {
 public:
-    matrix(int rows, int cols);
-    matrix(const matrix &copy);
-    ~matrix();
-    int get_num_cols();
-    int get_num_rows();
-    matrix operator+(matrix &rhs);
-    matrix operator-(matrix &rhs);
-    complex &operator()(int row, int col);
-    matrix &operator=(matrix &rhs);
+    matrix(int rows, int cols); // normal constructor
+    matrix(const matrix &copy); // copy constructor
+    ~matrix(); // destructor
+    int get_num_cols(); // get number of columns
+    int get_num_rows(); // get number of rows
+    matrix operator+(matrix &rhs); // operator + overloading
+    matrix operator-(matrix &rhs); // operator - overloading
+    complex &operator()(int row, int col); // operator () overloading
+    matrix &operator=(matrix &rhs); // assingment operator overloading
 
 private:
-    complex **m_vals;
+    complex **m_vals; // matrix 2d array
     int rows;
     int cols;
 };
 } // namespace gtmath
 
-std::ostream &operator<<(std::ostream &os, gtmath::matrix &m);
+std::ostream &operator<<(std::ostream &os, gtmath::matrix &m); // ostream operator overloading
 
 #endif
