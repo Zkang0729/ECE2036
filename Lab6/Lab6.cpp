@@ -7,6 +7,7 @@
 // Defines precision for x and y values. More the
 // interval, more the number of significant digits
 using namespace std;
+using namespace std::chrono;
 
 #define forever for (;;)
 
@@ -34,8 +35,6 @@ void RunCalculations(unsigned long long ulNumCalculations)
         // Distance between (x, y) from the origin
         origin_dist = rand_x * rand_x + rand_y * rand_y;
 
-        // cout << rand_x << " " << rand_y << " " << origin_dist << endl;
-
         // Checking if (x, y) lies inside the define
         // circle with R=1
         point_mutex.lock();
@@ -55,11 +54,11 @@ int main()
 
     forever
     {
-        auto start = chrono::high_resolution_clock::now();
+        auto start = high_resolution_clock::now();
         cout << "8 coccurent threads are supported.\n\nPlease enter the number of threads (0 to exit): ";
         cin >> numberOfThreads;
 
-        if (!numberOfThreads)
+        if (numberOfThreads <= 0)
             break;
 
         cout << "Please enter the number of calculations for each thread: ";
@@ -81,11 +80,9 @@ int main()
         for (auto &th : threads)
             th.join();
 
-        auto elapsed = chrono::high_resolution_clock::now() - start;
+        auto elapsed = high_resolution_clock::now() - start;
 
-        long long microseconds = chrono::duration_cast<chrono::microseconds>(elapsed).count();
-
-        cout << "Processing time(microseconds): " << microseconds << "\n"
+        cout << "Processing time(microseconds): " << elapsed.count() << "\n"
              << endl;
     }
     return 0;
