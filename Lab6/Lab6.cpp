@@ -30,10 +30,13 @@ void RunCalculations(unsigned long long ulNumCalculations)
     {
 
         // Randomly generated x and y values
-        rand_x = double(rand() % 2) - 1;
-        rand_y = double(rand() % 2) - 1;
+        rand_x = -1 + ((double)rand() / (double)(RAND_MAX / (double)2));
+        rand_y = -1 + ((double)rand() / (double)(RAND_MAX / (double)2));
+
         // Distance between (x, y) from the origin
         origin_dist = rand_x * rand_x + rand_y * rand_y;
+
+        // cout << rand_x << " " << rand_y << " " << origin_dist << endl;
 
         // Checking if (x, y) lies inside the define
         // circle with R=1
@@ -55,7 +58,7 @@ int main()
     forever
     {
         auto start = high_resolution_clock::now();
-        cout << "8 coccurent threads are supported.\n\nPlease enter the number of threads (0 to exit): ";
+        cout << thread::hardware_concurrency() << " coccurent threads are supported.\n\nPlease enter the number of threads (0 to exit): ";
         cin >> numberOfThreads;
 
         if (numberOfThreads <= 0)
@@ -74,16 +77,20 @@ int main()
         pi = (double)(4 * ulNumInside) / (double)total;
 
         // Final Estimated Value
-        cout << "Calculated vlaue of pi: " << pi << endl;
-
-        // Terminate each thread
-        for (auto &th : threads)
-            th.join();
+        cout << "Calculated value of pi: " << pi << endl;
 
         auto elapsed = high_resolution_clock::now() - start;
-
-        cout << "Processing time(microseconds): " << elapsed.count() << "\n"
+        long long micro = duration_cast<microseconds>(elapsed).count();
+        cout << "Processing time(microseconds): " << micro << "\n"
              << endl;
+
+        // reset the parameters
+        ulNumInside = 0;
+        total = 0;
+
+        // Terminate each thread
+        for (int i = 0; i < numberOfThreads; i++)
+            threads[i].join();
     }
     return 0;
 }
