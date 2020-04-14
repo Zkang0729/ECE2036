@@ -53,7 +53,7 @@ int main()
     forever
     {
         auto start = high_resolution_clock::now();
-        cout << thread::hardware_concurrency() << " coccurent threads are supported.\n\nPlease enter the number of threads (0 to exit): ";
+        cout << thread::hardware_concurrency() << " conccurent threads are supported.\n\nPlease enter the number of threads (0 to exit): ";
         cin >> numberOfThreads;
 
         if (numberOfThreads <= 0)
