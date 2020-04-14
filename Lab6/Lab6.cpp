@@ -1,11 +1,8 @@
 /* C++ program for estimation of Pi using Monte 
    Carlo Simulation */
 #include <bits/stdc++.h>
-#include <mutex>
 #include <thread>
 
-// Defines precision for x and y values. More the
-// interval, more the number of significant digits
 using namespace std;
 using namespace std::chrono;
 
@@ -13,16 +10,17 @@ using namespace std::chrono;
 
 void RunCalculations(unsigned long long ulNumCalculations);
 
-mutex point_mutex;
-long ulNumInside;
-long total;
+atomic_ullong ulNumInside(0);
 
 void RunCalculations(unsigned long long ulNumCalculations)
 {
+    int numberInCircle = 0;
     double rand_x, rand_y, origin_dist;
 
-    // Initializing rand()
-    srand(time(NULL));
+    // construct a trivial random generator engine from a time-based seed:
+    unsigned seed = system_clock::now().time_since_epoch().count();
+    default_random_engine generator(seed);
+    uniform_real_distribution<double> distribution(-1.0, 1.0);
 
     // Total Random numbers generated = possible x
     // values * possible y values
@@ -30,8 +28,8 @@ void RunCalculations(unsigned long long ulNumCalculations)
     {
 
         // Randomly generated x and y values
-        rand_x = -1 + ((double)rand() / (double)(RAND_MAX / (double)2));
-        rand_y = -1 + ((double)rand() / (double)(RAND_MAX / (double)2));
+        rand_x = distribution(generator);
+        rand_y = distribution(generator);
 
         // Distance between (x, y) from the origin
         origin_dist = rand_x * rand_x + rand_y * rand_y;
@@ -40,14 +38,11 @@ void RunCalculations(unsigned long long ulNumCalculations)
 
         // Checking if (x, y) lies inside the define
         // circle with R=1
-        point_mutex.lock();
         if (origin_dist <= 1)
-            ulNumInside++;
-
-        // Total number of points generated
-        total++;
-        point_mutex.unlock();
+            numberInCircle++;
     }
+    ulNumInside += numberInCircle;
+    // cout << numberInCircle << " " << ulNumInside;
 }
 
 int main()
@@ -69,12 +64,18 @@ int main()
 
         thread threads[numberOfThreads];
         // spawn threads:
-        for (int i = 0; i < numberOfThreads; i++)
+        for (int i = 0; i < numberOfThreads - 1; i++)
             threads[i] = thread(RunCalculations, numberOfCalculations / numberOfThreads);
+
+        RunCalculations(numberOfCalculations / numberOfThreads);
+
+        // Terminate each thread
+        for (int i = 0; i < numberOfThreads - 1; i++)
+            threads[i].join();
 
         double pi;
         // estimated pi after this iteration
-        pi = (double)(4 * ulNumInside) / (double)total;
+        pi = (double)(4 * ulNumInside) / (double)numberOfCalculations;
 
         // Final Estimated Value
         cout << "Calculated value of pi: " << pi << endl;
@@ -86,11 +87,6 @@ int main()
 
         // reset the parameters
         ulNumInside = 0;
-        total = 0;
-
-        // Terminate each thread
-        for (int i = 0; i < numberOfThreads; i++)
-            threads[i].join();
     }
     return 0;
 }
