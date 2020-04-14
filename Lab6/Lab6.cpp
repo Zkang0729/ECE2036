@@ -1,5 +1,10 @@
-/* C++ program for estimation of Pi using Monte 
-   Carlo Simulation */
+/*
+Author: Zixuan Kang
+Date Last Modified: 2020-04-14
+Organization: ECE2036 Class
+Description: C++ program for estimation of Pi using Monte 
+   Carlo Simulation
+*/
 #include <bits/stdc++.h>
 #include <thread>
 
