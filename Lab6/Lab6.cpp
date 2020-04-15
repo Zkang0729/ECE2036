@@ -57,7 +57,6 @@ int main()
 
     forever
     {
-        auto start = high_resolution_clock::now();
         cout << thread::hardware_concurrency() << " conccurent threads are supported.\n\nPlease enter the number of threads (0 to exit): ";
         cin >> numberOfThreads;
 
@@ -67,6 +66,7 @@ int main()
         cout << "Please enter the number of calculations for each thread: ";
         cin >> numberOfCalculations;
 
+        auto start = high_resolution_clock::now();
         thread threads[numberOfThreads];
         // spawn threads:
         for (int i = 0; i < numberOfThreads - 1; i++)
